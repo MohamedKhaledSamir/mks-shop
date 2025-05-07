@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/axios";
+import { useLoader } from "../../contexts/LoaderContext";
 
 export default function Register() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const { setShowLoader } = useLoader();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,6 +29,7 @@ export default function Register() {
       return;
     }
 
+    setShowLoader(true);
     api
       .post("/auth/signup", {
         name: fullName,
@@ -38,9 +41,12 @@ export default function Register() {
         if (res.status === 201) {
           localStorage.setItem("token", res.data.token);
           window.location.reload();
-        } else {
-          setMessage(res.data.message);
         }
+        setShowLoader(false);
+      })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+        setShowLoader(false);
       });
   };
 
