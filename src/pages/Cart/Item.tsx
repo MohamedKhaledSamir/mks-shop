@@ -3,7 +3,8 @@ import api from "../../api/axios";
 import { useLoader } from "../../contexts/LoaderContext";
 import { useCart } from "../../contexts/CartContext";
 
-export default function Item({ item }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Item({ item }: { item: any }) {
   const [count, setCount] = useState<number>(item.count);
   const { setShowLoader } = useLoader();
   const { removeItem } = useCart();
@@ -16,7 +17,7 @@ export default function Item({ item }) {
         { count: `${count + 1}` },
         { headers: { token: localStorage.token } }
       )
-      .then((res) => {
+      .then(() => {
         setCount(count + 1);
         setShowLoader(false);
       });
@@ -31,7 +32,7 @@ export default function Item({ item }) {
         { count: `${count - 1}` },
         { headers: { token: localStorage.token } }
       )
-      .then((res) => {
+      .then(() => {
         setCount(count - 1);
         setShowLoader(false);
       });

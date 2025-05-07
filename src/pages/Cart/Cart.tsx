@@ -1,13 +1,23 @@
 import { useCart } from "../../contexts/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Item from "./Item";
 
 import empty from "../../assets/Images/empty.png";
 import api from "../../api/axios";
 import { useLoader } from "../../contexts/LoaderContext";
+import { useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 const Cart = () => {
   const { cart } = useCart();
   const { setShowLoader } = useLoader();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
   if (!cart) {
     return (
@@ -37,7 +47,7 @@ const Cart = () => {
         setShowLoader(false);
         window.location.href = res.data.session.url;
       })
-      .catch((err) => {
+      .catch(() => {
         setShowLoader(false);
       });
   }

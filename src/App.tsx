@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Header from "./components/layout/Header";
-import Brand from "./pages/Brand/Brand";
 import Category from "./pages/Category/Category";
 import ProductOverview from "./pages/ProductOverview/ProductOverview";
 import Footer from "./components/layout/Footer";
@@ -27,7 +26,6 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Brands/:id" element={<Brand />} />
         <Route path="/Categories/:id" element={<Category />} />
         <Route path="/products/:id" element={<ProductOverview />} />
         <Route path="/cart" element={<Cart />} />

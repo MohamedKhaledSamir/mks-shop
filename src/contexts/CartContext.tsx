@@ -62,7 +62,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           headers: { token: localStorage.token },
         }
       )
-      .then((res) => {
+      .then(() => {
         fetchCart();
         setMessage("Product added to cart");
         setType("success");
@@ -83,10 +83,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       .delete(`/cart/${productId}`, {
         headers: { token: localStorage.token },
       })
-      .then((res) => {
+      .then(() => {
         setShowLoader(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setShowLoader(false);
       });
   }
